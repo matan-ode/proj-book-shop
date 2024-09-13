@@ -1,6 +1,6 @@
 'use strict'
 
-const gBooks = [
+var gBooks = [
     {
         id: makeId(),
         title: 'The Adventure',
@@ -24,4 +24,14 @@ const gBooks = [
 
 function getBooks(){
     return gBooks
+}
+
+function removeBook(bookId){    // Delete
+    const bookIdx = gBooks.findIndex(book => book.id === bookId)
+    gBooks.splice(bookIdx, 1)
+}
+
+function updateBook(newPrice, bookId){   // Update
+    const book = gBooks.find(book => book.id === bookId)
+    book.price = newPrice
 }
