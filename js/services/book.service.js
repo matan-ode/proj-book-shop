@@ -22,16 +22,31 @@ var gBooks = [
 ]
 
 
-function getBooks(){
+function getBooks() {
     return gBooks
 }
 
-function removeBook(bookId){    // Delete
+function removeBook(bookId) {    // Delete
     const bookIdx = gBooks.findIndex(book => book.id === bookId)
     gBooks.splice(bookIdx, 1)
 }
 
-function updateBook(newPrice, bookId){   // Update
+function updateBook(newPrice, bookId) {   // Update
     const book = gBooks.find(book => book.id === bookId)
     book.price = newPrice
+}
+
+function addBook(title, price) {
+    createBook(title, price)
+}
+
+function createBook(title, price) {
+    const newBook = {
+        id: makeId(),
+        title,
+        price,
+        imgUrl: title.toLowerCase().split(' ').join('-') + '.jpg'
+    }
+
+    gBooks.unshift(newBook)
 }

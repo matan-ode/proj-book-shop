@@ -39,3 +39,13 @@ function onUpdateBook(ev, bookId){
     //Dom:
     renderBooks()    
 }
+
+function onAddBook(){
+    //Model:
+    const bookTitle = prompt('Enter title: ')
+    const bookPrice = prompt('Enter price: ')
+    addBook(bookTitle, bookPrice)
+
+    //Dom:
+    renderBooks()    
+}
