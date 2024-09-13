@@ -1,0 +1,58 @@
+* {
+    box-sizing: border-box;
+}
+
+body {
+    font-family: 'Gill Sans', 'Gill Sans MT', Calibri, 'Trebuchet MS', sans-serif;
+    font-size: 30px;
+}
+
+table {
+    border: grey 1px solid;
+    padding: 5px;
+    border-collapse: collapse;
+    margin: auto;
+}
+
+thead {
+    font-weight: bold;
+    background-color: lightgray;
+}
+
+td {
+    border: grey solid 1px;
+    padding: 5px;
+    padding-left: 20px;
+    padding-right: 20px;
+}
+
+tr:nth-of-type(even) {
+    background-color: rgb(235, 235, 235);
+}
+
+td button {
+    border-radius: 12px;
+    border: none;
+    
+    font-size: 1em;
+    font-weight: bold;
+
+    text-align: center;
+    padding: 5px 15px 5px 15px;
+    margin-left: 6px;
+    margin-right: 6px;
+    
+    cursor: pointer;
+}
+
+.read-btn {
+    background-color: lightskyblue;
+}
+
+.update-btn {
+    background-color: gold
+}
+
+.delete-btn {
+    background-color: orange;
+}

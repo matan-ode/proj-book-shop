@@ -1,0 +1,56 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="css/style.css">
+    <title>Document</title>
+</head>
+
+<body>
+
+    <table>
+        <tbody>
+            <thead>
+                <td>Title</td>
+                <td>Price</td>
+                <td>Actions</td>
+            </thead>
+            <tr>
+                <td>The Adventure</td>
+                <td>120</td>
+                <td>
+                    <button class="read-btn" onclick="onReadBook(this)">Read</button>
+                    <button class="update-btn" onclick="onUpdateBook(this)">Update</button>
+                    <button class="delete-btn" onclick="onDeleteBook(this)">Delete</button>
+                </td>
+            </tr>
+            <tr>
+                <td>World Atlas</td>
+                <td>300</td>
+                <td>
+                    <button class="read-btn" onclick="onReadBook(this)">Read</button>
+                    <button class="update-btn" onclick="onUpdateBook(this)">Update</button>
+                    <button class="delete-btn" onclick="onDeleteBook(this)">Delete</button>
+                </td>
+            </tr>
+            <tr>
+                <td>Zobra the Greek</td>
+                <td>87</td>
+                <td>
+                    <button class="read-btn" onclick="onReadBook(this)">Read</button>
+                    <button class="update-btn" onclick="onUpdateBook(this)">Update</button>
+                    <button class="delete-btn" onclick="onDeleteBook(this)">Delete</button>
+                </td>
+            </tr>
+
+
+        </tbody>
+    </table>
+
+    <script src="js/services/util.service.js"></script>
+    <script src="js/services/book.service.js"></script>
+</body>
+
+</html>
