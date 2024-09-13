@@ -8,49 +8,22 @@
     <title>Document</title>
 </head>
 
-<body>
+<body onload="onInit()">
 
     <table>
-        <tbody>
-            <thead>
-                <td>Title</td>
-                <td>Price</td>
-                <td>Actions</td>
-            </thead>
-            <tr>
-                <td>The Adventure</td>
-                <td>120</td>
-                <td>
-                    <button class="read-btn" onclick="onReadBook(this)">Read</button>
-                    <button class="update-btn" onclick="onUpdateBook(this)">Update</button>
-                    <button class="delete-btn" onclick="onDeleteBook(this)">Delete</button>
-                </td>
-            </tr>
-            <tr>
-                <td>World Atlas</td>
-                <td>300</td>
-                <td>
-                    <button class="read-btn" onclick="onReadBook(this)">Read</button>
-                    <button class="update-btn" onclick="onUpdateBook(this)">Update</button>
-                    <button class="delete-btn" onclick="onDeleteBook(this)">Delete</button>
-                </td>
-            </tr>
-            <tr>
-                <td>Zobra the Greek</td>
-                <td>87</td>
-                <td>
-                    <button class="read-btn" onclick="onReadBook(this)">Read</button>
-                    <button class="update-btn" onclick="onUpdateBook(this)">Update</button>
-                    <button class="delete-btn" onclick="onDeleteBook(this)">Delete</button>
-                </td>
-            </tr>
+        <thead>
+            <td>Title</td>
+            <td>Price</td>
+            <td>Actions</td>
+        </thead>
 
-
+        <tbody class="books-table">
         </tbody>
     </table>
 
     <script src="js/services/util.service.js"></script>
     <script src="js/services/book.service.js"></script>
+    <script src="js/book.controller.js"></script>
 </body>
 
 </html>
