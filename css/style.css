@@ -7,6 +7,14 @@ body {
     font-size: 30px;
 }
 
+header {
+    text-align: center;
+    padding: 30px;
+    font-weight: bold;
+    font-size: 1.5em;
+    margin-bottom: 20px;
+}
+
 table {
     border: grey 1px solid;
     padding: 5px;
