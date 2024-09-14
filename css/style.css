@@ -95,6 +95,13 @@ td button {
 
 .modal {
     margin-top: 20px;
+    background-color: lightblue;
+}
+
+footer {
+    position: absolute;
+    bottom: 10px;
+    background-color: lightblue;
 }
 
 .hidden {

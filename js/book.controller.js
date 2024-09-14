@@ -22,6 +22,7 @@ function renderBooks() {
     )
 
     elBooks.innerHTML = strHtml.join('')
+    statisticsUpdate()
 }
 
 function onRemoveBook(ev, bookId) {
@@ -117,4 +118,22 @@ function onShowModal(text) {
     elModal.innerText = text
 
     setTimeout(() => { elModal.classList.add('hidden') }, 2000)
+}
+
+function statisticsUpdate(){
+    const elFooter = document.querySelector('footer')
+    var obj = gBooks.reduce((acc, book) => {
+        if(book.price > 200){
+            if(!acc.exp) acc.exp = 0
+            acc.exp++
+        }else if(book.price > 80){
+            if(!acc.avg) acc.avg = 0
+            acc.avg++
+        }else{
+            if(!acc.cheap) acc.cheap = 0
+            acc.cheap++
+        }
+        return acc
+    },{})
+    elFooter.innerText = `Expensive:${(obj.exp)? obj.exp: 0}, Average:${(obj.avg)? obj.avg:0}, Cheap${(obj.cheap)? obj.cheap: 0} `
 }
