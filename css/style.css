@@ -87,3 +87,8 @@ td button {
 .delete-btn {
     background-color: orange;
 }
+
+.details-modal {
+    padding: 10px;
+    background-color: lightblue;
+}
