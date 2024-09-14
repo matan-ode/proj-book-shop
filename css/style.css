@@ -93,6 +93,10 @@ td button {
     background-color: lightblue;
 }
 
+.modal {
+    margin-top: 20px;
+}
+
 .hidden {
     display: none;
 }

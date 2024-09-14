@@ -30,6 +30,7 @@ function onRemoveBook(ev, bookId) {
 
     //Dom:
     renderBooks()
+    onShowModal('Book successfully deleted!')
 }
 
 function onUpdateBook(ev, bookId) {
@@ -39,16 +40,25 @@ function onUpdateBook(ev, bookId) {
 
     //Dom:
     renderBooks()
+    onShowModal('Book successfully updated!')
 }
 
 function onAddBook() {
     //Model:
-    const bookTitle = prompt('Enter title: ')
-    const bookPrice = prompt('Enter price: ')
+    var bookTitle = prompt('Enter title: ')
+    while (!bookTitle) {
+        bookTitle = prompt('Enter title: ')
+    }
+    var bookPrice = prompt('Enter price: ')
+    while (!bookPrice) {
+        bookPrice = prompt('Enter price: ')
+    }
     addBook(bookTitle, bookPrice)
 
     //Dom:
     renderBooks()
+    onShowModal('Book successfully added!')
+
 }
 
 function onShowBookDetails(ev, bookId) {
@@ -86,7 +96,6 @@ function onInput(ev, elInput) {
 
 function onFilterTable(inputText) {
     inputText += ''
-    const length = inputText.length
     const lowerText = inputText.toLowerCase()
     console.log(lowerText);
 
@@ -95,6 +104,17 @@ function onFilterTable(inputText) {
             return
         } else {
             onRemoveBook(null, book.id)
+            const elModal = document.querySelector('.modal')
+            elModal.classList.add('hidden')
+
         }
     })
+}
+
+function onShowModal(text) {
+    const elModal = document.querySelector('.modal')
+    elModal.classList.remove('hidden')
+    elModal.innerText = text
+
+    setTimeout(() => { elModal.classList.add('hidden') }, 2000)
 }
