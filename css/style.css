@@ -92,3 +92,7 @@ td button {
     padding: 10px;
     background-color: lightblue;
 }
+
+.hidden {
+    display: none;
+}

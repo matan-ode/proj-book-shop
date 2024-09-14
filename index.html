@@ -5,12 +5,13 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="stylesheet" href="css/style.css">
-    <title>Document</title>
+    <title>Book Shop</title>
 </head>
 
 <body onload="onInit()">
     <header>Books Shop</header>
     <button class="add-book" onclick="onAddBook()">Add</button>
+    <input type="text" placeholder="Book title" oninput="onInput(event, this)">
     <table>
         <thead>
             <td>Title</td>
@@ -30,6 +31,7 @@
     </dialog>
 
     <script src="js/services/util.service.js"></script>
+    <script src="js/services/storage.service.js"></script>
     <script src="js/services/book.service.js"></script>
     <script src="js/book.controller.js"></script>
 </body>
