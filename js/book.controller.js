@@ -7,6 +7,7 @@ const gQueryOptions = {
 }
 
 var gBookToUpdate = null
+var gCurrValueSort = ''
 
 function onInit() {
     readQueryParams()
@@ -157,11 +158,61 @@ function onShowModal(text) {
 function onSortBy() {
     const elSortField = document.querySelector('.sort-field')
     const elSortDir = document.querySelector('.sort-dir')
+    const elHeadline = document.querySelector(`.header-sort .${elSortField.value}`)
 
     gQueryOptions.sortBy.sortField = elSortField.value
     gQueryOptions.sortBy.sortDir = elSortDir.checked ? -1 : 1
 
+    if (!elSortField.value) {
+        resetHeaders()
+    } else if (elSortField.value.toLowerCase() !== gCurrValueSort.toLowerCase()){
+        resetHeaders()
+        gCurrValueSort = elSortField.value
+
+        if (elSortDir.checked) {
+            elHeadline.innerText = `${elSortField.value.charAt(0).toUpperCase() + elSortField.value.substring(1)}-`
+        } else {
+            elHeadline.innerText = `${elSortField.value.charAt(0).toUpperCase() + elSortField.value.substring(1)}+`
+        }
+    }
+    else {       
+        if (elSortDir.checked) {
+            elHeadline.innerText = `${elSortField.value.charAt(0).toUpperCase() + elSortField.value.substring(1)}-`
+        } else {
+            elHeadline.innerText = `${elSortField.value.charAt(0).toUpperCase() + elSortField.value.substring(1)}+`
+        }
+    }
+
     renderBooks()
+}
+
+function resetHeaders(){
+    const elTitle = document.querySelector('.header-sort .title')
+    const elPrice = document.querySelector('.header-sort .price')
+    const elRating = document.querySelector('.header-sort .rating')
+    elTitle.innerText = 'Title'
+    elPrice.innerText = 'Price'
+    elRating.innerText = 'Rating'
+}
+
+function onClickSort(elHeadline, value) {
+    const elSortField = document.querySelector('.sort-field')
+    const elSortDir = document.querySelector('.sort-dir')
+
+    if (value.toLowerCase() !== gCurrValueSort.toLowerCase()) {
+        resetHeaders()
+    }
+
+    gCurrValueSort = value
+    elSortField.value = value
+
+    if (elSortDir.checked) {
+        elSortDir.checked = false
+    } else {
+        elSortDir.checked = true
+    }
+    onSortBy()
+
 }
 
 function onNextPage() {
