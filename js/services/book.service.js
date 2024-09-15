@@ -66,9 +66,11 @@ function removeBook(bookId) {    // Delete
     _saveBooks()
 }
 
-function updateBook(newPrice, bookId) {   // Update
+function updateBook(newTitle, newPrice, newRating, bookId) {   // Update
     const book = gBooks.find(book => book.id === bookId)
+    book.title = newTitle
     book.price = newPrice
+    book.rating = newRating
 
     _saveBooks()
 }

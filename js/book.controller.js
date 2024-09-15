@@ -6,6 +6,8 @@ const gQueryOptions = {
     page: { idx: 0, size: 5 }
 }
 
+var gBookToUpdate = null
+
 function onInit() {
     readQueryParams()
     renderBooks()
@@ -42,27 +44,25 @@ function onRemoveBook(ev, bookId) {
     onShowModal('Book successfully deleted!')
 }
 
-function onUpdateBook(ev, bookId) {
-    //Model:
-    const newPrice = prompt('Enter new price: ')
-    updateBook(newPrice, bookId)
+function onUpdateBook(ev, bookId, bookTitle, bookPrice, bookRating) {
+    gBookToUpdate = getBookById(bookId)
 
-    //Dom:
-    renderBooks()
-    onShowModal('Book successfully updated!')
+    const elTitle = document.querySelector('.book-edit-modal .title')
+    const elPrice = document.querySelector('.book-edit-modal .price')
+    const elRating = document.querySelector('.book-edit-modal .rating')
+
+    elTitle.value = gBookToUpdate.title
+    elPrice.value = gBookToUpdate.price
+    elRating.value = gBookToUpdate.rating
+
+    const elModal = document.querySelector('.book-edit-modal')
+    elModal.showModal()
 }
 
 function onAddBook() {
     const elModal = document.querySelector('.book-edit-modal')
+    resetBookEditModal()
     elModal.showModal()
-    // var bookTitle = prompt('Enter title: ')
-    // while (!bookTitle) {
-    //     bookTitle = prompt('Enter title: ')
-    // }
-    // var bookPrice = prompt('Enter price: ')
-    // while (!bookPrice) {
-    //     bookPrice = prompt('Enter price: ')
-    // }
 }
 
 function onSaveUpdate() {
@@ -75,7 +75,14 @@ function onSaveUpdate() {
     const bookPrice = elPrice.value
     const bookRating = elRating.value
 
-    addBook(bookTitle, bookPrice, bookRating)
+    if (gBookToUpdate) {
+        updateBook(bookTitle, bookPrice, bookRating, gBookToUpdate.id)
+        onShowModal('Book successfully updated!')
+        gBookToUpdate = null
+    } else {
+        addBook(bookTitle, bookPrice, bookRating)
+        onShowModal('Book successfully added!')
+    }
 
     elTitle.value = ''
     elPrice.value = ''
@@ -83,7 +90,16 @@ function onSaveUpdate() {
 
     //Dom:
     renderBooks()
-    onShowModal('Book successfully added!')
+}
+
+function resetBookEditModal() {
+    const elTitle = document.querySelector('.book-edit-modal .title')
+    const elPrice = document.querySelector('.book-edit-modal .price')
+    const elRating = document.querySelector('.book-edit-modal .rating')
+
+    elTitle.value = ''
+    elPrice.value = ''
+    elRating.value = 1
 }
 
 function onShowBookDetails(ev, bookId) {
