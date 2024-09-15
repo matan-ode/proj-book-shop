@@ -136,3 +136,11 @@ function statisticsUpdate() {
     }, {})
     elFooter.innerText = `Expensive: ${(obj.exp) ? obj.exp : 0} | Average: ${(obj.avg) ? obj.avg : 0} |  Cheap: ${(obj.cheap) ? obj.cheap : 0} `
 }
+
+function starsMaker(rating){
+    var str = ''
+    for(var i = 0 ; i < rating ; i++){
+        str += '⭐'    
+    }
+    return str
+}

@@ -20,7 +20,7 @@ function renderBooks() {
         `<tr>
             <td>${book.title}</td>
             <td>${book.price}</td>
-            <td>${book.rating}</td>
+            <td>${starsMaker(book.rating)}</td>
             <td>
                 <button class="read-btn" onclick="onShowBookDetails(event, '${book.id}')">Read</button>
                 <button class="update-btn" onclick="onUpdateBook(event, '${book.id}')">Update</button>
