@@ -34,7 +34,7 @@ function getBooks(options = {}) {
 }
 
 function getLastPageIdx(filterBy, pageSize) {
-    const length = _filterBooks(filterBy).length
+    const length = findBooksByTitleAndRating(filterBy).length
     return Math.ceil(length / pageSize) - 1
 }
 

@@ -126,6 +126,7 @@ function onShowBookDetails(ev, bookId) {
 
 function onInput(ev, elInput) {
     gQueryOptions.filterBy.title = elInput.value
+    gQueryOptions.page.idx = 0
     renderBooks()
 }
 
