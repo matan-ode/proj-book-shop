@@ -2,31 +2,15 @@
 
 const BOOKS_KEY = 'books'
 
-    // {
-    //     id: makeId(),
-    //     title: 'The Adventure',
-    //     price: 120,
-    //     imgUrl: 'img/the-adventure.jpeg'
-    // },
-    // {
-    //     id: makeId(),
-    //     title: 'World Atlas',
-    //     price: 100,
-    //     imgUrl: 'img/world-atlas.jpeg'
-    // },
-    // {
-    //     id: makeId(),
-    //     title: 'Zobra the Greek',
-    //     price: 80,
-    //     imgUrl: 'img/zobra-the-greek.jpeg'
-    // }
-
 var gBooks = []
 
 _createBooks()
 
-function getBooks() {
-    return gBooks
+function getBooks(filterBy) {
+    if (!filterBy) return gBooks
+
+    const filteredBooks = findBooksByTitle(filterBy)
+    return filteredBooks
 }
 
 function getBookById(bookId) {
@@ -60,7 +44,7 @@ function addBook(title, price) {
 function _createBooks() {
     gBooks = loadFromStorage(BOOKS_KEY)
 
-    if(gBooks && gBooks.length !== 0) return
+    if (gBooks && gBooks.length !== 0) return
 
     gBooks = []
     gBooks.push(_createBook('The Adventure', 120))
@@ -71,16 +55,21 @@ function _createBooks() {
 }
 
 
-function _createBook(title, price) {
+function _createBook(title, price, rating = getRandomInt(1, 6)) {
     return {
         id: makeId(),
         title,
         price,
-        imgUrl: 'img/' + title.toLowerCase().split(' ').join('-') + '.jpeg'
+        imgUrl: 'img/' + title.toLowerCase().split(' ').join('-') + '.jpeg',
+        rating
     }
 }
 
-function _saveBooks(){
+function _saveBooks() {
     saveToStorage(BOOKS_KEY, gBooks)
 }
 
+function findBooksByTitle(filterBy) {
+    const txt = filterBy.toLowerCase()
+    return gBooks.filter(book => book.title.toLowerCase().includes(filterBy))
+}

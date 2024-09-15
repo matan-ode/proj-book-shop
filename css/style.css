@@ -16,32 +16,40 @@ header {
 }
 
 .add-book {
- 
+
 
     border-radius: 12px;
     border: none;
-    
+
     font-size: 0.7em;
     font-weight: bold;
 
     text-align: center;
     margin-bottom: 10px;
-    margin-left: 50px;
+    margin-left: 20vw;
     padding: 0 10px 0 10px;
-    
+
     cursor: pointer;
+}
+
+input {
+    height: 25px;
+    border-radius: 7px;
 }
 
 table {
     border: grey 1px solid;
     padding: 5px;
     border-collapse: collapse;
-    margin: auto;
+    margin-top: 1vh;
+    margin-left: 20vw;
+    /* margin: auto; */
 }
 
 thead {
     font-weight: bold;
     background-color: lightgray;
+
 }
 
 td {
@@ -55,7 +63,7 @@ tr:nth-of-type(even) {
     background-color: rgb(235, 235, 235);
 }
 
-td:nth-child(even){
+td:nth-child(2), td:nth-child(3) {
     text-align: center;
     margin-left: 0;
     padding-left: 10px;
@@ -64,7 +72,7 @@ td:nth-child(even){
 td button {
     border-radius: 12px;
     border: none;
-    
+
     font-size: 1em;
     font-weight: bold;
 
@@ -72,7 +80,7 @@ td button {
     padding: 5px 15px 5px 15px;
     margin-left: 6px;
     margin-right: 6px;
-    
+
     cursor: pointer;
 }
 
@@ -99,7 +107,8 @@ td button {
 }
 
 footer {
-    position: absolute;
+    position: fixed;
+    inset: auto 0 0 0;
     bottom: 10px;
     background-color: lightblue;
 }

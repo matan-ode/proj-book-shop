@@ -1,6 +1,6 @@
 'use strict'
 
-var inputText = ''
+var gFilterBy = ''
 
 function onInit() {
     renderBooks()
@@ -8,11 +8,12 @@ function onInit() {
 
 function renderBooks() {
     const elBooks = document.querySelector('.books-table')
-    const books = getBooks()
+    const books = getBooks(gFilterBy)
     var strHtml = books.map(book =>
         `<tr>
             <td>${book.title}</td>
             <td>${book.price}</td>
+            <td>${book.rating}</td>
             <td>
                 <button class="read-btn" onclick="onShowBookDetails(event, '${book.id}')">Read</button>
                 <button class="update-btn" onclick="onUpdateBook(event, '${book.id}')">Update</button>
@@ -78,38 +79,9 @@ function onShowBookDetails(ev, bookId) {
 }
 
 function onInput(ev, elInput) {
-    // console.log(ev)
+    gFilterBy = elInput.value
+    renderBooks()
 
-    if (ev.inputType === "deleteContentBackward") {
-        elInput.value = ''
-        inputText = ''
-        gBooks = []
-        _saveBooks()
-        _createBooks()
-        renderBooks()
-    }
-    else {
-        inputText += ev.data
-        // console.log(inputText);
-        onFilterTable(inputText)
-    }
-}
-
-function onFilterTable(inputText) {
-    inputText += ''
-    const lowerText = inputText.toLowerCase()
-    console.log(lowerText);
-
-    gBooks.forEach(book => {
-        if (book.title.toLowerCase().includes(lowerText)) {
-            return
-        } else {
-            onRemoveBook(null, book.id)
-            const elModal = document.querySelector('.modal')
-            elModal.classList.add('hidden')
-
-        }
-    })
 }
 
 function onShowModal(text) {
@@ -135,5 +107,5 @@ function statisticsUpdate(){
         }
         return acc
     },{})
-    elFooter.innerText = `Expensive:${(obj.exp)? obj.exp: 0}, Average:${(obj.avg)? obj.avg:0}, Cheap${(obj.cheap)? obj.cheap: 0} `
+    elFooter.innerText = `Expensive:${(obj.exp)? obj.exp: 0} | Average:${(obj.avg)? obj.avg:0} |  Cheap:${(obj.cheap)? obj.cheap: 0} `
 }
