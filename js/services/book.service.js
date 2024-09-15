@@ -73,8 +73,8 @@ function updateBook(newPrice, bookId) {   // Update
     _saveBooks()
 }
 
-function addBook(title, price) {
-    const book = _createBook(title, price)
+function addBook(title, price, rating) {
+    const book = _createBook(title, price, rating)
     gBooks.unshift(book)
 
     _saveBooks()

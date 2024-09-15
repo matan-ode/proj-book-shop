@@ -185,6 +185,12 @@ td button {
     cursor: pointer;
 }
 
+.book-edit-modal .title {
+    margin-top: 20px;
+    margin-bottom: 20px;
+
+}
+
 footer {
     position: fixed;
     inset: auto 0 0 0;

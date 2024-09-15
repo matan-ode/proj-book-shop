@@ -60,8 +60,32 @@
 
     <dialog class="details-modal">
         <form method="dialog">
-            <pre></pre>
             <button>x</button>
+            <pre></pre>
+        </form>
+    </dialog>
+
+    <dialog class="book-edit-modal">
+        <form method="dialog">
+            <button>x</button>
+            <h4>Add Book</h4>
+            <div class="main">
+                <input class="title" type="text" placeholder="Book title">
+                <input class="price" type="text" placeholder="Book Price">
+
+                <label>
+                    <span style="font-size: 20px;">Rating:</span>
+                    <select class="rating" name="rating" id="rating">
+                        <option value="1">1</option>
+                        <option value="2">2</option>
+                        <option value="3">3</option>
+                        <option value="4">4</option>
+                        <option value="5">5</option>
+                    </select>
+                </label>
+                <button class="cancel">Cancel</button>
+                <button class="save" onclick="onSaveUpdate()">Save</button>
+            </div>
         </form>
     </dialog>
 

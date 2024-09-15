@@ -53,21 +53,37 @@ function onUpdateBook(ev, bookId) {
 }
 
 function onAddBook() {
+    const elModal = document.querySelector('.book-edit-modal')
+    elModal.showModal()
+    // var bookTitle = prompt('Enter title: ')
+    // while (!bookTitle) {
+    //     bookTitle = prompt('Enter title: ')
+    // }
+    // var bookPrice = prompt('Enter price: ')
+    // while (!bookPrice) {
+    //     bookPrice = prompt('Enter price: ')
+    // }
+}
+
+function onSaveUpdate() {
+    const elTitle = document.querySelector('.book-edit-modal .title')
+    const elPrice = document.querySelector('.book-edit-modal .price')
+    const elRating = document.querySelector('.book-edit-modal .rating')
+
     //Model:
-    var bookTitle = prompt('Enter title: ')
-    while (!bookTitle) {
-        bookTitle = prompt('Enter title: ')
-    }
-    var bookPrice = prompt('Enter price: ')
-    while (!bookPrice) {
-        bookPrice = prompt('Enter price: ')
-    }
-    addBook(bookTitle, bookPrice)
+    const bookTitle = elTitle.value
+    const bookPrice = elPrice.value
+    const bookRating = elRating.value
+
+    addBook(bookTitle, bookPrice, bookRating)
+
+    elTitle.value = ''
+    elPrice.value = ''
+    elRating.value = 1
 
     //Dom:
     renderBooks()
     onShowModal('Book successfully added!')
-
 }
 
 function onShowBookDetails(ev, bookId) {
@@ -146,9 +162,9 @@ function onNextPage() {
 function onPrePage() {
     const lastPageIdx = getLastPageIdx(gQueryOptions.filterBy, gQueryOptions.page.size)
 
-    if(gQueryOptions.page.idx > 0){
+    if (gQueryOptions.page.idx > 0) {
         gQueryOptions.page.idx--
-    } else{
+    } else {
         gQueryOptions.page.idx = lastPageIdx
     }
     renderBooks()
