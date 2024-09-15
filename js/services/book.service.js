@@ -6,12 +6,26 @@ var gBooks = []
 
 _createBooks()
 
-function getBooks(options ={}) {
+function getBooks(options = {}) {
     const filterBy = options.filterBy
+    const sortBy = options.sortBy
+
     if (!filterBy) return gBooks
 
-    const filteredBooks = findBooksByTitleAndRating(filterBy)
-    return filteredBooks
+    // Filter
+
+    var books = findBooksByTitleAndRating(filterBy)
+
+    // Sort
+    if (sortBy.sortField === 'title') {
+        books.sort((b1, b2) => b1.title.localeCompare(b2.title) * sortBy.sortDir)
+    } else if (sortBy.sortField === 'price') {
+        books.sort((b1, b2) => (b1.price - b2.price) * sortBy.sortDir)
+    } else if (sortBy.sortField === 'rating') {
+        books.sort((b1, b2) => (b1.rating - b2.rating) * sortBy.sortDir)
+    }
+
+    return books
 }
 
 function getBookById(bookId) {
@@ -74,24 +88,23 @@ function findBooksByTitleAndRating(filterBy) {
     const txt = filterBy.title.toLowerCase()
     const rating = filterBy.rating
 
-    return gBooks.filter(book => (book.rating >= filterBy.rating && book.title.toLowerCase().includes(filterBy.title)))
-
+    return gBooks.filter(book => (book.rating >= rating && book.title.toLowerCase().includes(txt)))
 }
 
-function statisticsUpdate(){
+function statisticsUpdate() {
     const elFooter = document.querySelector('footer')
     var obj = gBooks.reduce((acc, book) => {
-        if(book.price > 200){
-            if(!acc.exp) acc.exp = 0
+        if (book.price > 200) {
+            if (!acc.exp) acc.exp = 0
             acc.exp++
-        }else if(book.price > 80){
-            if(!acc.avg) acc.avg = 0
+        } else if (book.price > 80) {
+            if (!acc.avg) acc.avg = 0
             acc.avg++
-        }else{
-            if(!acc.cheap) acc.cheap = 0
+        } else {
+            if (!acc.cheap) acc.cheap = 0
             acc.cheap++
         }
         return acc
-    },{})
-    elFooter.innerText = `Expensive: ${(obj.exp)? obj.exp: 0} | Average: ${(obj.avg)? obj.avg:0} |  Cheap: ${(obj.cheap)? obj.cheap: 0} `
+    }, {})
+    elFooter.innerText = `Expensive: ${(obj.exp) ? obj.exp : 0} | Average: ${(obj.avg) ? obj.avg : 0} |  Cheap: ${(obj.cheap) ? obj.cheap : 0} `
 }

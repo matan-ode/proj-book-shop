@@ -10,22 +10,35 @@
 
 <body onload="onInit()">
     <header>Books Shop</header>
+    <div class="settings">
+        <button class="add-book" onclick="onAddBook()">Add</button>
 
-    <button class="add-book" onclick="onAddBook()">Add</button>
+        <input class="title-filter" type="text" placeholder="Book title" oninput="onInput(event, this)">
 
-    <input class="title-filter" type="text" placeholder="Book title" oninput="onInput(event, this)">
+        <select class="rating-filter" name="ratings" id="ratings" onchange="onDropdownSelect(this)">
+            <option value="0">None</option>
+            <option value="1">1</option>
+            <option value="2">2</option>
+            <option value="3">3</option>
+            <option value="4">4</option>
+            <option value="5">5</option>
+        </select>
 
-    <select class="rating-filter" name="ratings" id="ratings" onchange="onDropdownSelect(this)">
-        <option value="0">None</option>
-        <option value="1">1</option>
-        <option value="2">2</option>
-        <option value="3">3</option>
-        <option value="4">4</option>
-        <option value="5">5</option>
-    </select>
-
-    <button class="clear-filter" onclick="onClearFilter()">Clear</button>
-
+        <button class="clear-filter" onclick="onClearFilter()">Clear</button>
+        
+        <div class="sort-by">
+            <select class="sort-field" name="sort" id="sort" onchange="onSortBy(this)">
+                <option value="">None</option>
+                <option value="title">Title</option>
+                <option value="price">Price</option>
+                <option value="rating">Rating</option>
+            </select>
+            <label>
+                <span>Descending</span>
+                <input class="sort-dir" type="checkbox" oninput="onSortBy()">
+            </label>
+        </div>
+    </div>
     <table>
         <thead>
             <td>Title</td>

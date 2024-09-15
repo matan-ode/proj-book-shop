@@ -2,6 +2,7 @@
 
 const gQueryOptions = {
     filterBy: { title: '', rating: 0 },
+    sortBy: {}
 }
 
 function onInit() {
@@ -120,29 +121,67 @@ function onShowModal(text) {
     setTimeout(() => { elModal.classList.add('hidden') }, 2000)
 }
 
+function onSortBy() {
+    const elSortField = document.querySelector('.sort-field')
+    const elSortDir = document.querySelector('.sort-dir')
+
+    gQueryOptions.sortBy.sortField = elSortField.value
+    gQueryOptions.sortBy.sortDir = elSortDir.checked ? -1 : 1
+
+    renderBooks()
+}
+
+
 // Query Params
 
-function readQueryParams(){
-const queryParams = new URLSearchParams(window.location.search)
+function readQueryParams() {
+    const queryParams = new URLSearchParams(window.location.search)
 
-gQueryOptions.filterBy = {
-    title: queryParams.get('title') || '',
-    rating: queryParams.get('rating') || 0
+    // Filter
+    gQueryOptions.filterBy = {
+        title: queryParams.get('title') || '',
+        rating: queryParams.get('rating') || 0
+    }
+
+    // Sort
+    if (queryParams.get('sortField')) {
+        const prop = queryParams.get('sortField')
+        const dir = queryParams.get('sortDir')
+
+        gQueryOptions.sortBy.sortField = prop
+        gQueryOptions.sortBy.sortDir = dir
+    }
+
+    renderQueryParams()
 }
 
-renderQueryParams()
-}
-
-function renderQueryParams(){
+function renderQueryParams() {
+    // Filter
     document.querySelector('.title-filter').value = gQueryOptions.filterBy.title
     document.querySelector('.rating-filter').value = gQueryOptions.filterBy.rating
+
+    // Sort
+    const sortField = gQueryOptions.sortBy.sortField
+    const sortDir = +gQueryOptions.sortBy.sortDir
+
+    document.querySelector('.sort-by select').value = sortField || ''
+    document.querySelector('.sort-by input').checked = (sortDir === -1) ? true : false
+
 }
 
 function setQueryParams() {
     const queryParams = new URLSearchParams()
 
+    // Filter
     queryParams.set('title', gQueryOptions.filterBy.title)
     queryParams.set('rating', gQueryOptions.filterBy.rating)
+
+    // Sort
+    if (gQueryOptions.sortBy.sortField) {
+        queryParams.set('sortField', gQueryOptions.sortBy.sortField)
+        queryParams.set('sortDir', gQueryOptions.sortBy.sortDir)
+    }
+
 
     const newUrl =
         window.location.protocol + "//" +
