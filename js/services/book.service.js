@@ -9,7 +9,7 @@ _createBooks()
 function getBooks(filterBy) {
     if (!filterBy) return gBooks
 
-    const filteredBooks = findBooksByTitle(filterBy)
+    const filteredBooks = findBooksByTitleAndRating(filterBy)
     return filteredBooks
 }
 
@@ -69,7 +69,10 @@ function _saveBooks() {
     saveToStorage(BOOKS_KEY, gBooks)
 }
 
-function findBooksByTitle(filterBy) {
-    const txt = filterBy.toLowerCase()
-    return gBooks.filter(book => book.title.toLowerCase().includes(filterBy))
+function findBooksByTitleAndRating(filterBy) {
+    const txt = filterBy.title.toLowerCase()
+    const rating = filterBy.rating
+
+    return gBooks.filter(book => (book.rating >= filterBy.rating && book.title.toLowerCase().includes(filterBy.title)))
+
 }

@@ -10,8 +10,22 @@
 
 <body onload="onInit()">
     <header>Books Shop</header>
+
     <button class="add-book" onclick="onAddBook()">Add</button>
+
     <input type="text" placeholder="Book title" oninput="onInput(event, this)">
+
+    <select name="ratings" id="ratings" onchange="onDropdownSelect(this)">
+        <option value="0">None</option>
+        <option value="1">1</option>
+        <option value="2">2</option>
+        <option value="3">3</option>
+        <option value="4">4</option>
+        <option value="5">5</option>
+    </select>
+
+    <button class="clear-filter" onclick="onClearFilter()">Clear</button>
+
     <table>
         <thead>
             <td>Title</td>

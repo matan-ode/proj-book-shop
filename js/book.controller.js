@@ -1,6 +1,6 @@
 'use strict'
 
-var gFilterBy = ''
+var gFilterBy = {title: '', rating: 0}
 
 function onInit() {
     renderBooks()
@@ -85,9 +85,26 @@ function onShowBookDetails(ev, bookId) {
 }
 
 function onInput(ev, elInput) {
-    gFilterBy = elInput.value
+    gFilterBy.title = elInput.value
     renderBooks()
+}
 
+function onDropdownSelect(elSelect){
+    gFilterBy.rating = +elSelect.value
+    renderBooks()
+}
+
+function onClearFilter(){
+    gFilterBy.rating = 0
+    gFilterBy.title = ''
+
+    var elInput = document.querySelector('input')
+    var elSelect = document.querySelector('select')
+
+    elInput.value = ''
+    elSelect.value = 0
+
+    renderBooks()
 }
 
 function onShowModal(text) {
@@ -113,5 +130,5 @@ function statisticsUpdate(){
         }
         return acc
     },{})
-    elFooter.innerText = `Expensive:${(obj.exp)? obj.exp: 0} | Average:${(obj.avg)? obj.avg:0} |  Cheap:${(obj.cheap)? obj.cheap: 0} `
+    elFooter.innerText = `Expensive: ${(obj.exp)? obj.exp: 0} | Average: ${(obj.avg)? obj.avg:0} |  Cheap: ${(obj.cheap)? obj.cheap: 0} `
 }
