@@ -13,9 +13,9 @@
 
     <button class="add-book" onclick="onAddBook()">Add</button>
 
-    <input type="text" placeholder="Book title" oninput="onInput(event, this)">
+    <input class="title-filter" type="text" placeholder="Book title" oninput="onInput(event, this)">
 
-    <select name="ratings" id="ratings" onchange="onDropdownSelect(this)">
+    <select class="rating-filter" name="ratings" id="ratings" onchange="onDropdownSelect(this)">
         <option value="0">None</option>
         <option value="1">1</option>
         <option value="2">2</option>

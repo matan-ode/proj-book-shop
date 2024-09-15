@@ -1,14 +1,17 @@
 'use strict'
 
-var gFilterBy = {title: '', rating: 0}
+const gQueryOptions = {
+    filterBy: { title: '', rating: 0 },
+}
 
 function onInit() {
+    readQueryParams()
     renderBooks()
 }
 
 function renderBooks() {
     const elBooks = document.querySelector('.books-table')
-    const books = getBooks(gFilterBy)
+    const books = getBooks(gQueryOptions)
     var strHtml = books.map(book =>
         `<tr>
             <td>${book.title}</td>
@@ -24,6 +27,8 @@ function renderBooks() {
 
     elBooks.innerHTML = strHtml.join('')
     statisticsUpdate()
+
+    setQueryParams()
 }
 
 function onRemoveBook(ev, bookId) {
@@ -79,24 +84,24 @@ function onShowBookDetails(ev, bookId) {
     Price: ${book.price}
     Rating: ${book.rating}
     ID: ${bookId}`
-    
+
     elDetails.innerHTML = bookCoverHtml + '\n' + bookText
     elModal.showModal()
 }
 
 function onInput(ev, elInput) {
-    gFilterBy.title = elInput.value
+    gQueryOptions.filterBy.title = elInput.value
     renderBooks()
 }
 
-function onDropdownSelect(elSelect){
-    gFilterBy.rating = +elSelect.value
+function onDropdownSelect(elSelect) {
+    gQueryOptions.filterBy.rating = +elSelect.value
     renderBooks()
 }
 
-function onClearFilter(){
-    gFilterBy.rating = 0
-    gFilterBy.title = ''
+function onClearFilter() {
+    gQueryOptions.filterBy.rating = 0
+    gQueryOptions.filterBy.title = ''
 
     var elInput = document.querySelector('input')
     var elSelect = document.querySelector('select')
@@ -115,20 +120,34 @@ function onShowModal(text) {
     setTimeout(() => { elModal.classList.add('hidden') }, 2000)
 }
 
-function statisticsUpdate(){
-    const elFooter = document.querySelector('footer')
-    var obj = gBooks.reduce((acc, book) => {
-        if(book.price > 200){
-            if(!acc.exp) acc.exp = 0
-            acc.exp++
-        }else if(book.price > 80){
-            if(!acc.avg) acc.avg = 0
-            acc.avg++
-        }else{
-            if(!acc.cheap) acc.cheap = 0
-            acc.cheap++
-        }
-        return acc
-    },{})
-    elFooter.innerText = `Expensive: ${(obj.exp)? obj.exp: 0} | Average: ${(obj.avg)? obj.avg:0} |  Cheap: ${(obj.cheap)? obj.cheap: 0} `
+// Query Params
+
+function readQueryParams(){
+const queryParams = new URLSearchParams(window.location.search)
+
+gQueryOptions.filterBy = {
+    title: queryParams.get('title') || '',
+    rating: queryParams.get('rating') || 0
+}
+
+renderQueryParams()
+}
+
+function renderQueryParams(){
+    document.querySelector('.title-filter').value = gQueryOptions.filterBy.title
+    document.querySelector('.rating-filter').value = gQueryOptions.filterBy.rating
+}
+
+function setQueryParams() {
+    const queryParams = new URLSearchParams()
+
+    queryParams.set('title', gQueryOptions.filterBy.title)
+    queryParams.set('rating', gQueryOptions.filterBy.rating)
+
+    const newUrl =
+        window.location.protocol + "//" +
+        window.location.host +
+        window.location.pathname + '?' + queryParams.toString()
+
+    window.history.pushState({ path: newUrl }, '', newUrl)
 }
