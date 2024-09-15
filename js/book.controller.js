@@ -2,7 +2,8 @@
 
 const gQueryOptions = {
     filterBy: { title: '', rating: 0 },
-    sortBy: {}
+    sortBy: {},
+    page: { idx: 0, size: 5 }
 }
 
 function onInit() {
@@ -131,6 +132,28 @@ function onSortBy() {
     renderBooks()
 }
 
+function onNextPage() {
+    const lastPageIdx = getLastPageIdx(gQueryOptions.filterBy, gQueryOptions.page.size)
+
+    if (gQueryOptions.page.idx < lastPageIdx) {
+        gQueryOptions.page.idx++
+    } else {
+        gQueryOptions.page.idx = 0
+    }
+    renderBooks()
+}
+
+function onPrePage() {
+    const lastPageIdx = getLastPageIdx(gQueryOptions.filterBy, gQueryOptions.page.size)
+
+    if(gQueryOptions.page.idx > 0){
+        gQueryOptions.page.idx--
+    } else{
+        gQueryOptions.page.idx = lastPageIdx
+    }
+    renderBooks()
+}
+
 
 // Query Params
 
@@ -152,6 +175,11 @@ function readQueryParams() {
         gQueryOptions.sortBy.sortDir = dir
     }
 
+    // Paging
+    if (queryParams.get('pageIdx')) {
+        gQueryOptions.page.idx = +queryParams.get('pageIdx')
+        gQueryOptions.page.size = +queryParams.get('pageSize')
+    }
     renderQueryParams()
 }
 
@@ -166,7 +194,6 @@ function renderQueryParams() {
 
     document.querySelector('.sort-by select').value = sortField || ''
     document.querySelector('.sort-by input').checked = (sortDir === -1) ? true : false
-
 }
 
 function setQueryParams() {
@@ -182,6 +209,11 @@ function setQueryParams() {
         queryParams.set('sortDir', gQueryOptions.sortBy.sortDir)
     }
 
+    // Paging
+    if (gQueryOptions.page) {
+        queryParams.set('pageIdx', gQueryOptions.page.idx)
+        queryParams.set('pageSize', gQueryOptions.page.size)
+    }
 
     const newUrl =
         window.location.protocol + "//" +

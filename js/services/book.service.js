@@ -9,6 +9,7 @@ _createBooks()
 function getBooks(options = {}) {
     const filterBy = options.filterBy
     const sortBy = options.sortBy
+    const page = options.page
 
     if (!filterBy) return gBooks
 
@@ -23,6 +24,31 @@ function getBooks(options = {}) {
         books.sort((b1, b2) => (b1.price - b2.price) * sortBy.sortDir)
     } else if (sortBy.sortField === 'rating') {
         books.sort((b1, b2) => (b1.rating - b2.rating) * sortBy.sortDir)
+    }
+
+    // Paging
+    const startIdx = page.idx * page.size
+    books = books.slice(startIdx, startIdx + page.size)
+
+    return books
+}
+
+function getLastPageIdx(filterBy, pageSize) {
+    const length = _filterBooks(filterBy).length
+    return Math.ceil(length / pageSize) - 1
+}
+
+function _filterBooks(filterBy) {
+    var books = gBooks.slice()
+
+    //Filter
+    if (filterBy.title) {
+        const title = filterBy.title.toLowerCase()
+        books.filter(book => book.title.toLowerCase().includes(title))
+    }
+    if (filterBy.rating) {
+        const rating = filterBy.rating
+        books.filter(book => book.rating >= rating)
     }
 
     return books
