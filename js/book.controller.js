@@ -70,11 +70,17 @@ function onShowBookDetails(ev, bookId) {
     const elDetails = document.querySelector('pre')
 
     const book = getBookById(bookId)
-    const bookJson = JSON.stringify(book, null, 2)
+    // const bookJson = JSON.stringify(book, null, 2)
     const bookCoverUrl = book.imgUrl
     const bookCoverHtml = `<img src="${bookCoverUrl}">`
 
-    elDetails.innerHTML = bookCoverHtml + '\n' + bookJson
+    const bookText = `
+    Title: ${book.title}
+    Price: ${book.price}
+    Rating: ${book.rating}
+    ID: ${bookId}`
+    
+    elDetails.innerHTML = bookCoverHtml + '\n' + bookText
     elModal.showModal()
 }
 
